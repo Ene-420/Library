@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="side-content">
+                <div class="user-info">
+                    <img src="media/icons8-user-avatar-96.png" alt="">
+                    <p>Hello User</p>
+                </div>
+                <ul class="reading-content list-item">
+                    <li>Articles</li>
+                    <li>News</li>
+                    <li>Comics</li>
+                    <li>Books</li>
+                    <li>Miscellanous</li>
+                </ul>
+            </div>
+        </div>
+        <div class="header">
+            <div class="head">
+                <h1>My Library</h1>
+            </div>
+            <nav class="head-content">
+                <ul class="content-item list-item">
+                    <li>Library</li>
+                    <li>Current Reading</li>
+                    <li>Completed</li>
+                </ul>
+            </nav>
+        </div>
+        <div class="body">
+            <img class="add_icon" src="media/circle-plus-solid.svg" alt="add_book">
+            
+            <dialog id="add_book">
+                <form action="">
+                    <div class="dialog-head">
+                        <h2>Enter Book Details</h2>
+                        <button><img src="media/circle-xmark-regular.svg" alt="close_icon"></button>
+                    </div>
+                    <div  class="dialog-head">
+                        <div class="form-row">
+                            <label for="title">Title</label>
+                            <input id="title" type="text">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="author">Author</label>
+                            <input id="author" type="text">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="pages">Pages</label>
+                            <input id="pages" type="number">
+                        </div>
+
+                        
+                        <div class="form-row">
+                            <p>Status</p>
+
+                            <input type="radio" id="read" name="status" value="read">
+                            <label for="read">Read</label>
+
+                            <input type="radio" id="currently-reading" name="status" value="currently-reading">
+                            <label for="currently-reading">Currently Reading</label>
+
+                            <input type="radio" id="finished" name="status" value="finished">
+                            <label for="finished">Finished</label>
+                        </div>
+
+                    </div>
+                </form>
+            </dialog>
+        </div>
+    </div>
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
