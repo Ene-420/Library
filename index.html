@@ -29,20 +29,21 @@
             </div>
             <nav class="head-content">
                 <ul class="content-item list-item">
-                    <li>Library</li>
-                    <li>Current Reading</li>
-                    <li>Completed</li>
+                    <li><a href="">Library</a></li>
+                    <li><a href="">Current Reading</a></li>
+                    <li><a href="">Completed</a></li>
                 </ul>
             </nav>
         </div>
         <div class="body">
             <img class="add_icon" src="media/circle-plus-solid.svg" alt="add_book">
             
+            
             <dialog id="add_dialog">
-                <form id="book_form" action="">
+                <form id="book_form" method="dialog">
                     <div class="dialog-head">
                         <h2>Enter Book Details</h2>
-                        <button><img src="media/circle-xmark-regular.svg" alt="close_icon"></button>
+                        <button value="cancel" formmethod="dialog"><img class="close_btn" src="media/circle-xmark-regular.svg" alt="close_icon"></button>
                     </div>
                     <div  class="dialog-body">
                         <div class="form-row">
@@ -78,7 +79,8 @@
                             </div>
                         </div>
 
-                        <input class="add-submit" type="submit" value="Add Book">
+                        
+                        <button class="add-submit" value="default">Add Book</button>
 
                     </div>
                 </form>
