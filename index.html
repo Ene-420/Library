@@ -38,13 +38,13 @@
         <div class="body">
             <img class="add_icon" src="media/circle-plus-solid.svg" alt="add_book">
             
-            <dialog id="add_book">
-                <form action="">
+            <dialog id="add_dialog">
+                <form id="book_form" action="">
                     <div class="dialog-head">
                         <h2>Enter Book Details</h2>
                         <button><img src="media/circle-xmark-regular.svg" alt="close_icon"></button>
                     </div>
-                    <div  class="dialog-head">
+                    <div  class="dialog-body">
                         <div class="form-row">
                             <label for="title">Title</label>
                             <input id="title" type="text">
@@ -61,20 +61,24 @@
                         </div>
 
                         
-                        <div class="form-row">
+                        <div class="radio-area">
                             <p>Status</p>
+                            <div>
+                                <input type="radio" id="read" name="status" value="read">
+                                <label for="read">Read</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="currently-reading" name="status" value="currently-reading">
+                                <label for="currently-reading">Currently Reading</label>
+                            </div>
 
-                            <input type="radio" id="read" name="status" value="read">
-                            <label for="read">Read</label>
-
-                            <input type="radio" id="currently-reading" name="status" value="currently-reading">
-                            <label for="currently-reading">Currently Reading</label>
-
-                            <input type="radio" id="finished" name="status" value="finished">
-                            <label for="finished">Finished</label>
+                            <div>
+                                <input type="radio" id="finished" name="status" value="finished">
+                                <label for="finished">Finished</label>
+                            </div>
                         </div>
 
-                        <input type="submit" value="Add Book">
+                        <input class="add-submit" type="submit" value="Add Book">
 
                     </div>
                 </form>
