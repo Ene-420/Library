@@ -73,6 +73,7 @@ html, body{
 .list-item li:hover{
     border-bottom: 5px solid white;
 }
+
 .body{
     background-color: blanchedalmond;
     padding: 10px;

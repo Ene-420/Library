@@ -38,7 +38,51 @@ const pageCount = document.getElementById('pages');
 const bookTitle = document.getElementById('title');
 const authorName = document.getElementById('author');
 const closeDialog = document.querySelector('.close_btn');
+const headerItems = document.querySelectorAll('.c-items');
 
+
+headerItems.forEach(items =>{
+  //console.log(items.firstElementChild.firstChild.nodeValue);
+  //console.log(items);
+  
+  items.addEventListener('click', ()=> {
+    switch(items.firstChild.textContent){
+      case 'Library':
+        console.log('library');
+
+        removeBorder();
+
+        addBorder(items);
+        updateContent(libraryContent);
+        break;
+
+      case 'Current Reading':
+        console.log('current reading');
+        removeBorder();
+
+        addBorder(items);
+
+        updateContent(libraryContent.filter(book => book.status === 'Currently reading'))
+        break;
+      
+      case 'Completed':
+        console.log('completed');
+        
+
+        removeBorder();
+
+        addBorder(items);
+
+        updateContent(libraryContent.filter(book => book.status === 'Finished'))
+        break;
+
+      default:
+        break;
+    }
+
+    
+  })
+})
 
 
 
@@ -55,56 +99,21 @@ closeDialog.addEventListener('click', ()=>{
 })
 
 addBook.addEventListener('click', getBookDetails);
-updateContent();
+updateContent(libraryContent);
 
-function updateContent(){
+function updateContent(content){
 
+    const cardCheck = document.querySelectorAll('.card');
+    if(cardCheck.length >0){
+      cardCheck.forEach(card=>{
+        card.remove();
+      })
+    }
 
-    for(let x =0; x< libraryContent.length; x++){
-      let cardHeader = document.createElement('h2');
-      let cardAuthor = document.createElement('p');
-      let cardPage = document.createElement('p');
-      let removeBtn = document.createElement('button');
-      let continueBtn = document.createElement('button');
-      let cardDiv = document.createElement('div');
+    for(let x =0; x< content.length; x++){
 
-      cardDiv.classList.add('card');
+      createCard(content[x], x);
 
-      
-      cardHeader.classList.add('title')
-      cardHeader.textContent = libraryContent[x].title;
-
-      
-      cardAuthor.textContent = libraryContent[x].author;
-
-      
-      cardPage.textContent = `${libraryContent[x].pages} pages`;
-      cardPage.classList.add('page');
-
-      let div = document.createElement('div');
-      div.classList.add('extraFeat');
-    
-      
-
-      removeBtn.textContent='remove';
-      removeBtn.classList.add('extra-btn');
-    
-      continueBtn.textContent='read';
-      continueBtn.classList.add('extra-btn');
-    
-      div.appendChild(removeBtn);
-      div.appendChild(continueBtn);
-    
-      
-
-      cardDiv.appendChild(cardHeader);
-      cardDiv.appendChild(cardAuthor);
-      cardDiv.appendChild(cardPage);
-      cardDiv.appendChild(div);
-
-      cardDiv.dataset.key =x;
-
-      contentBody.appendChild(cardDiv);
   }
 }
 
@@ -158,6 +167,77 @@ function extraBtnFunc(element){
 
 }
 
+function createBook(book){
+  if(book){
+    createCard(book, libraryContent.length+1);
+
+  }
+}
+
 function removeBook(position){
   libraryContent.splice(position,1);
+}
+
+function createCard(bookDetails, x){
+  let cardHeader = document.createElement('h2');
+  let cardAuthor = document.createElement('p');
+  let cardPage = document.createElement('p');
+  let removeBtn = document.createElement('button');
+  let continueBtn = document.createElement('button');
+  let cardDiv = document.createElement('div');
+
+  cardDiv.classList.add('card');
+
+  
+  cardHeader.classList.add('title')
+  cardHeader.textContent = bookDetails.title;
+
+  
+  cardAuthor.textContent = bookDetails.author;
+
+  
+  cardPage.textContent = `${bookDetails.pages} pages`;
+  cardPage.classList.add('page');
+
+  let div = document.createElement('div');
+  div.classList.add('extraFeat');
+
+  removeBtn.textContent='remove';
+  removeBtn.classList.add('extra-btn');
+
+  continueBtn.textContent='read';
+  continueBtn.classList.add('extra-btn');
+
+  div.appendChild(removeBtn);
+  div.appendChild(continueBtn);
+
+  cardDiv.appendChild(cardHeader);
+  cardDiv.appendChild(cardAuthor);
+  cardDiv.appendChild(cardPage);
+  cardDiv.appendChild(div);
+
+  cardDiv.dataset.key =x;
+
+  contentBody.appendChild(cardDiv);
+}
+
+function addBorder(item){
+  if(item.classList.contains('active')){
+    console.log('Already active');
+  }
+
+  else{
+    item.classList.add('active');
+  }
+}
+
+function removeBorder(){
+  for(let i = 0; i < headerItems.length; i++){
+    headerItems.forEach(item => {
+      if(item.classList.contains('active')){
+        item.classList.remove('active');
+
+      }
+    })
+  }
 }
