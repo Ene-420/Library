@@ -9,7 +9,7 @@
 
 html, body{
     width: 100%;
-    height: 100%;
+    height: 100vh;
 }
 .container{
     height: 100vh;
@@ -20,13 +20,14 @@ html, body{
 .sidebar{
     background-color: darkolivegreen;
     grid-row: start/end;
-    padding: 10px;
+    padding: 5px;
     
 }
 
 .side-content{
-    width: 80%;
+    width: fit-content;
     margin: 0 auto;
+    
 }
 
 .header{
@@ -47,22 +48,30 @@ html, body{
 }
 .content-item{
     display: flex;
+    gap: 10px;
 }
 .active{
     border-bottom: 8px solid white;
 }
 
 
-
 .user-info{
     display:flex;
     align-items: center;
+    width: fit-content;
 
 }
+
+.user-icon{
+    min-width: 70px;
+    width: 50%;
+}
+
 .list-item li, .user-info p{
-    padding: 10px;
+    padding:  8px 5px;
     color: white;
-    font-size: 2rem;
+    font-size: 2.5vw;
+    
 }
 
 .list-item li a{
@@ -79,7 +88,7 @@ html, body{
     padding: 10px;
     position: relative;
     display: grid;
-    grid-template-columns: repeat(auto-fit,200px);
+    grid-template-columns: repeat(auto-fit,250px);
 
     gap: 10px;
     justify-items: center;
@@ -96,6 +105,7 @@ html, body{
 
 .card{
     display: flex;
+    max-width: 200px;
     height: 200px;
     flex-direction: column;
     align-items: center;
@@ -115,14 +125,14 @@ html, body{
     margin-left: auto;
 }
 
-.extraFeat{
+.extra-feat{
     display: flex;
     opacity: 0;
     justify-content: space-between;
     gap: 8px;
 }
 
-.card:hover .extraFeat{
+.card:hover .extra-feat{
     opacity: 1;
 }
 
@@ -182,7 +192,7 @@ form{
 }
 
 .add-submit, .extra-btn{
-    padding: 8px 10px;
+    padding: 8px 12px;
     width: fit-content;
     display: flex;
     margin: 10px auto;
@@ -196,5 +206,38 @@ form{
     justify-content: center;
     border: none;
     font-size: 1rem;
-    width: 4rem;
+    width: 4.5rem;
+}
+
+@media screen and (max-width: 700px) {
+
+    .body{
+        display: grid;
+    
+        align-items: center;
+        justify-items: center;
+    }
+
+    .card{
+        height: 150px;
+    }
+
+    .user-info{
+        display: flex;
+        flex-direction: column;
+    
+    }
+
+    .sidebar{
+        padding: 0;
+        
+    }
+
+    .side-content{
+        width: 80%;
+    }
+    .user-info p, .list-item li{
+        font-size: 4vw;
+        padding: 10px 5px;
+    }
 }

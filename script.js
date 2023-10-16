@@ -1,22 +1,25 @@
-function Book(title, author, pages, status){
-    this.title =title
-    this.author=author
-    this.pages = pages
-    this.status =status;
+class Book {
+  constructor(title, author, pages, status) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
+  }
 
-    function info(){
-      if(status === 'Currently Reading'){
-        return`${this.title} by ${this.author}, ${this.pages} pages is currently being read`;
-      }
-      else if(status ==='Finished'){ 
-        return`${this.title} by ${this.author}, ${this.pages} pages has been completed`;
-      }
+  info(){
+    if (this.status === 'Currently Reading'.toLowerCase) {
+      return `${this.title} by ${this.author}, ${this.pages} pages is currently being read`;
+    }
+    else if (this.status === 'Finished'.toLowerCase) {
+      return `${this.title} by ${this.author}, ${this.pages} pages has been completed`;
+    }
 
-      else{
-        return`${this.title} by ${this.author}, ${this.pages} pages has not been read`;
-      }
+    else {
+      return `${this.title} by ${this.author}, ${this.pages} pages has not been read`;
     }
   }
+
+}
 
   const book = new Book('The Hobbit', 'J.R Tolkein', 285, 'Finished');
   const book2 = new Book('The Amazing Spiderman', 'Stan Lee', 200, 'Currently reading');
@@ -34,16 +37,18 @@ const contentBody = document.querySelector('.body');
 const dialog = document.getElementById('add_dialog');
 const addButton = document.querySelector('.add_icon');
 const addBook = document.querySelector('.add-submit');
-const pageCount = document.getElementById('pages');
-const bookTitle = document.getElementById('title');
-const authorName = document.getElementById('author');
 const closeDialog = document.querySelector('.close_btn');
 const headerItems = document.querySelectorAll('.c-items');
 
+dialog.style.display = 'none';
 
 headerItems.forEach(items =>{
-  //console.log(items.firstElementChild.firstChild.nodeValue);
-  //console.log(items);
+
+  if(items.firstChild.textContent ==='Library'){
+    addBorder(items);
+    updateContent(libraryContent)
+
+  }
   
   items.addEventListener('click', ()=> {
     switch(items.firstChild.textContent){
@@ -88,25 +93,26 @@ headerItems.forEach(items =>{
 
 addButton.addEventListener('click', ()=>{
   dialog.style.visibility= 'visible';
-  dialog.showModal();
- 
+  dialog.style.display='block';
+  dialog.showModal(); 
 });
 
 
 closeDialog.addEventListener('click', ()=>{
   dialog.style.visibility= 'hidden';
+  dialog.style.display = 'none';
   dialog.close();
 })
 
 addBook.addEventListener('click', getBookDetails);
-updateContent(libraryContent);
+
 
 function updateContent(content){
 
     const cardCheck = document.querySelectorAll('.card');
     if(cardCheck.length >0){
-      cardCheck.forEach(card=>{
-        card.remove();
+      cardCheck.forEach(card => {
+        contentBody.removeChild(card);
       })
     }
 
@@ -119,39 +125,25 @@ function updateContent(content){
 
 
 
-// const cards = document.querySelectorAll('.card');
-
-// cards.forEach((card) =>{
-//   card.addEventListener('mouseenter', extraBtnFunc(card))
-// });
-
-const extraButtons = document.querySelectorAll('.extra-btn');
-
-extraButtons.forEach(button =>{
-  button.addEventListener('click', ()=>{
-    console.log(button.textContent);
-
-    switch(button.textContent){
-      case 'remove':
-        removeBook(button.parentElement.parentElement.dataset.key);
-        button.parentElement.parentElement.remove();
-        //location.reload();
-        // updateContent();
-        break;
-      
-      case 'read':
-        console.log('Read button has been pressed');
-        break;
-    }
-  })
-})
-
 function getBookDetails(event){
   const checkedValue = document.querySelector("input[type='radio'][name='status']:checked");
+  const pageCount = document.getElementById('pages');
+  const bookTitle = document.getElementById('title');
+  const authorName = document.getElementById('author');
 
   if(pageCount.value && authorName.value && bookTitle.value && checkedValue.value){
-    let createBook = new Book(bookTitle.value,authorName.value,pageCount.value, checkedValue.value);
-    console.log(createBook.info);
+    let newBook = new Book(bookTitle.value,authorName.value,pageCount.value, checkedValue.value);
+    console.log(newBook.info());
+
+    const inList = libraryContent.some((book) => book.title === newBook.title && book.author === newBook.author);
+    if(inList){
+      console.log('Already in library');
+    }
+
+    else{
+      libraryContent.push(newBook);
+      createBook(newBook);
+    }
     event.preventDefault();
   }
 
@@ -163,19 +155,17 @@ function getBookDetails(event){
   
 }
 
-function extraBtnFunc(element){
-
-}
 
 function createBook(book){
   if(book){
-    createCard(book, libraryContent.length+1);
+    updateContent(libraryContent);
 
   }
 }
 
 function removeBook(position){
   libraryContent.splice(position,1);
+  updateContent(libraryContent);
 }
 
 function createCard(bookDetails, x){
@@ -200,13 +190,17 @@ function createCard(bookDetails, x){
   cardPage.classList.add('page');
 
   let div = document.createElement('div');
-  div.classList.add('extraFeat');
+  div.classList.add('extra-feat');
 
   removeBtn.textContent='remove';
   removeBtn.classList.add('extra-btn');
-
-  continueBtn.textContent='read';
+  removeBtn.onclick = function(event){
+    
+    removeBook(removeBtn.parentElement.parentElement.dataset.key);
+  }
+  continueBtn.textContent='Finished';
   continueBtn.classList.add('extra-btn');
+
 
   div.appendChild(removeBtn);
   div.appendChild(continueBtn);
@@ -219,6 +213,7 @@ function createCard(bookDetails, x){
   cardDiv.dataset.key =x;
 
   contentBody.appendChild(cardDiv);
+
 }
 
 function addBorder(item){
@@ -241,3 +236,4 @@ function removeBorder(){
     })
   }
 }
+
